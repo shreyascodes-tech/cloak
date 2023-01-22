@@ -1,5 +1,5 @@
 // deno-lint-ignore-file no-explicit-any
-import { getQuery } from "https://deno.land/x/oak@v11.1.0/helpers.ts";
+// import { getQuery } from "https://deno.land/x/oak@v11.1.0/helpers.ts";
 import {
   Context,
   RouterMiddleware,
@@ -105,5 +105,5 @@ export function validateBody<
 }
 
 export const fromQueryOrFail: ValidationOptions = {
-  readerFn: getQuery,
+  readerFn: (ctx) => Object.fromEntries(ctx.request.url.searchParams),
 };
