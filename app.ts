@@ -41,7 +41,11 @@ export interface Server<T extends State = State, L extends State = State> {
 export function createServer<T extends Record<string, any>>(
   options?: ApplicationOptions<T, ServerRequest>
 ): Server<T> {
-  const app = new Application<T>(options);
+  const app = new Application<T>({
+    ...options,
+    state: options.state ?? {},
+    contextState: options.contextState ?? "alias",
+  });
   const routers: Router<T>[] = [];
 
   app.use(async (ctx: Context<T, T>, next) => {
